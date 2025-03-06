@@ -13,12 +13,6 @@ theme = "yinyang"
     style = "bw"
     tabWidth = 2
 
-[languages]
-  [languages.en]
-    contentDir = "content/en"
-    languageName = "English"
-    weight = 1
-
 [params]
 mainSections = ["posts"]
 headTitle = "Sat"
