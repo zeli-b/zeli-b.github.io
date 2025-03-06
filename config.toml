@@ -18,14 +18,10 @@ theme = "yinyang"
     contentDir = "content/en"
     languageName = "English"
     weight = 1
-  [languages.cn]
-    contentDir = "content/cn"
-    languageName = "Chinese"
-    weight = 2
 
 [params]
 mainSections = ["posts"]
-headTitle = "Pradotavor Sciie"
+headTitle = "Sat"
 extraHead = '<script async src="https://www.googletagmanager.com/gtag/js?id=UA-xxx"></script>'
 [[params.socials]]
 name = "Github"
