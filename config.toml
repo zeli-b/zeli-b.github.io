@@ -88,7 +88,7 @@ pagination.pagerSize = 5
       words = "words"
 
       [languages.en.params.logo]
-        logoText = "Terminal"
+        logoText = "Sat"
         logoHomeLink = "/"
 
       [languages.en.menu]
