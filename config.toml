@@ -13,10 +13,6 @@ theme = "yinyang"
     style = "bw"
     tabWidth = 2
 
-[author]
-  name = "Pradotavor Sciie"
-  homepage = "https://me.shtelo.org/"
-
 [languages]
   [languages.en]
     contentDir = "content/en"
