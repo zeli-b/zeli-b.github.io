@@ -1,6 +1,7 @@
 baseURL = "https://zeli-b.github.io/"
 languageCode = "en-us"
 title = "Sat Test Wiki"
+theme = "yinyang"
 
 [markup]
   [markup.goldmark]
