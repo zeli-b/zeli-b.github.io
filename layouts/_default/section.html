@@ -4,8 +4,8 @@
     {{ .Content }}
     <hr>
     <ul>
-    {{ range .RegularPages.ByTitle }}
-        <li>{{ .Title }}</li>
+    {{ range .Sections }}
+        <li>{{ .LinkTitle }}</li>
     {{ end }}
     </ul>
 {{ partial "footer.html" }}
