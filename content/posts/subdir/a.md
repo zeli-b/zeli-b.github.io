@@ -1,6 +1,6 @@
 ---
-title: "Hello, world"
-date: 2025-03-06T19:49:48+09:00
+title: "The second article"
+date: 2025-03-07T09:17:38+09:00
 ---
 
 this is me
