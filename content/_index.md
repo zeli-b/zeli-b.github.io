@@ -1,7 +1,6 @@
 ---
-title: "This is Title"
+title: FrontPage
+date: 2025-03-07T19:32:00
 ---
 
-Hello, worldb this is content of the fiel
-
-checkout [wow](/wow). this will be the wiki of the sat.
+이것은 FrontPage 인 것입니다.
