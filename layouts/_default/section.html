@@ -2,4 +2,10 @@
     section
     <h1>{{ .Title }}</h1>
     {{ .Content }}
+    <hr>
+    <ul>
+    {{ range .RegularPages.ByTitle }}
+        <li>{{ .Title }}</li>
+    {{ end }}
+    </ul>
 {{ partial "footer.html" }}
