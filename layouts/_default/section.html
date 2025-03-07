@@ -1,7 +1,11 @@
 {{ partial "header.html" }}
+    {{ .Parent.LinkTitle }}
+    <hr>
+
     section
     <h1>{{ .Title }}</h1>
     {{ .Content }}
+
     <hr>
     <ul>
     {{ range .Sections }}
