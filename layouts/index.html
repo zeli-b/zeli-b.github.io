@@ -1,5 +1,11 @@
 {{ partial "header.html" }}
-    index
     <h1>{{ .Title }}</h1>
     {{ .Content }}
+
+    <hr>
+    <ul>
+    {{ range .Sections }}
+        <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+    {{ end }}
+    </ul>
 {{ partial "footer.html" }}
