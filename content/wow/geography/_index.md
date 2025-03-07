@@ -1,5 +1,0 @@
----
-title: geo
----
-
-geo
