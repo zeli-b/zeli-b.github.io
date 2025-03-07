@@ -1,15 +1,14 @@
 {{ partial "header.html" }}
-    {{ .Parent.LinkTitle }}
+    <a href="{{ .Parent.RelPermalink }}">{{ .Parent.LinkTitle }}</a>
     <hr>
 
-    section
     <h1>{{ .Title }}</h1>
     {{ .Content }}
 
     <hr>
     <ul>
     {{ range .Sections }}
-        <li>{{ .LinkTitle }}</li>
+        <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
     {{ end }}
     </ul>
 {{ partial "footer.html" }}
