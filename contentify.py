@@ -15,6 +15,9 @@ def main():
     tmpdir = './tmp'
 
     for path, directories, filenames in walk(wikidir):
+        if '/.git' in path:
+            continue
+
         tpath = join(tmpdir, path[7:])
         isdir(tpath) and rmtree(tpath)
         mkdir(tpath)
@@ -26,6 +29,8 @@ def main():
 
         for filename in filenames:
             if not filename.endswith('.md'):
+                continue
+            if filename == 'README.md':
                 continue
 
             if filename != '_index.md':
