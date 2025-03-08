@@ -1,6 +1,6 @@
 from datetime import datetime
 from os import mkdir, walk, popen
-from os.path import join, isdir, dirname, basename, getmtime
+from os.path import join, isdir, dirname, basename, getmtime, isfile
 from re import compile
 from shutil import copy, copytree, rmtree
 from time import time
@@ -85,18 +85,20 @@ def main():
         fillfrontmatter(join(tpath, '_index.md'))
 
         bn = basename(path)
-        if bn + '.md' in filenames:
-            addfrontmatter(join(path, bn + '.md'), join(tpath, '_index.md'))
+        if '_index.md' in filenames:
+            addfrontmatter(join(path, '_index.md'), join(tpath, '_index.md'))
 
         for filename in filenames:
             if not filename.endswith('.md'):
                 continue
             if filename == 'README.md':
                 continue
-            if filename == bn + '.md':
-                continue
 
-            if filename != '_index.md':
+            if filename == bn + '.md':
+                fpath = tpath
+                isdir(fpath) or mkdir(fpath)
+                addfrontmatter(join(path, filename), join(fpath, '_index.md'))
+            elif filename != '_index.md':
                 fpath = join(tpath, filename[:-3])
                 isdir(fpath) or mkdir(fpath)
                 addfrontmatter(join(path, filename), join(fpath, '_index.md'))
