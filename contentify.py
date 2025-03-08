@@ -98,6 +98,8 @@ def main():
                 isdir(fpath) or mkdir(fpath)
                 addfrontmatter(join(path, filename), join(fpath, '_index.md'))
 
+    rmtree(join(tmpdir, 'static'))
+
 
     isdir(contentdir) or mkdir(contentdir)
     obsidian_to_hugo = ObsidianToHugo(
