@@ -70,6 +70,8 @@ def main():
 
         tpath = join(tmpdir, path[7:])
         isdir(tpath) or mkdir(tpath)
+        with open(join(tpath, '_index.md'), 'w'):
+            pass
 
         if '_index.md' in filenames:
             addfrontmatter(join(path, '_index.md'), join(tpath, '_index.md'))
