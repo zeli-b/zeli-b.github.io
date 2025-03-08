@@ -12,7 +12,8 @@ def addfrontmatter(wfile, tfile):
         else:
             title = basename(wfile)[:-3]
 
-        date = '2025-03-08T11:49:11+09:00'
+        date = datetime.utcfromtimestamp(getmtime(wfile)).astimezone().strftime('%Y-%m-%dT%H:%M:%S%z')
+        date = date[:-2] + ':' + date[-2:]
 
         tmpfile.write('---\n')
         tmpfile.write(f'title: {title}\n')
