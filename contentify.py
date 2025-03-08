@@ -2,6 +2,7 @@ from datetime import datetime
 from os import mkdir, walk, popen
 from os.path import join, isdir, dirname, basename, getmtime
 from shutil import copy, rmtree
+from time import time
 
 from obsidian_to_hugo import ObsidianToHugo
 
@@ -32,6 +33,8 @@ def addfrontmatter(wfile, tfile):
 
 
 def main():
+    starttime = time()
+
     contentdir = './content'
     wikidir = './wiki'
     tmpdir = './tmp'
@@ -43,7 +46,6 @@ def main():
         tpath = join(tmpdir, path[7:])
         isdir(tpath) and rmtree(tpath)
         mkdir(tpath)
-        print(tpath)
 
         if '_index.md' in filenames:
             addfrontmatter(join(path, '_index.md'), join(tpath, '_index.md'))
@@ -58,7 +60,6 @@ def main():
                 fpath = join(tpath, filename[:-3])
 
                 mkdir(fpath)
-                print(fpath)
 
                 addfrontmatter(join(path, filename), join(fpath, '_index.md'))
 
@@ -70,6 +71,9 @@ def main():
     )
 
     obsidian_to_hugo.run()
+
+    et = (time() - starttime) * 1000
+    print(f'Total in {int(et):,} ms')
 
 
 if __name__ == '__main__':
