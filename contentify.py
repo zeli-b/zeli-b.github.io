@@ -13,7 +13,7 @@ def addfrontmatter(wfile, tfile):
         else:
             title = basename(wfile)[:-3]
 
-        date = popen(f"cd wiki; git log -n 1 --pretty=format:%ci \"{wfile[7:]}\"").read()
+        date = popen(f"cd wiki; git log -1 --pretty=format:%ci \"{wfile[7:]}\"").read()
         if not date:
             print("wtf", wfile)
             date = datetime.now().astimezone()
