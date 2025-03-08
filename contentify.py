@@ -38,8 +38,7 @@ def main():
                 addfrontmatter(wfile)
 
 
-    rmtree(contentdir)
-    mkdir(contentdir)
+    isdir(contentdir) or mkdir(contentdir)
     obsidian_to_hugo = ObsidianToHugo(
         obsidian_vault_dir=tmpdir,
         hugo_content_dir=contentdir,
