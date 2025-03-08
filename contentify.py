@@ -5,8 +5,15 @@ from shutil import copy, rmtree
 from obsidian_to_hugo import ObsidianToHugo
 
 
-def addfrontmatter(wfile):
-    print(wfile)
+def addfrontmatter(wfile, tfile):
+    with open(tfile, 'w') as tmpfile:
+        tmpfile.write('---\n')
+        tmpfile.write('title: title')
+        tmpfile.write('date: 2025-03-08T11:49:11+09:00')
+        tmpfile.write('---\n')
+        with open(wfile, 'r') as wikifile:
+            while buffer := wikifile.read(1024):
+                tmpfile.write(buffer)
 
 
 def main():
@@ -24,8 +31,7 @@ def main():
         print(tpath)
 
         if '_index.md' in filenames:
-            copy(wfile := join(path, '_index.md'), join(tpath, '_index.md'))
-            addfrontmatter(wfile)
+            addfrontmatter(join(path, '_index.md'), join(tpath, '_index.md'))
 
         for filename in filenames:
             if not filename.endswith('.md'):
@@ -39,8 +45,7 @@ def main():
                 mkdir(fpath)
                 print(fpath)
 
-                copy(wfile := join(path, filename), join(fpath, '_index.md'))
-                addfrontmatter(wfile)
+                addfrontmatter(join(path, filename), join(fpath, '_index.md'))
 
 
     isdir(contentdir) or mkdir(contentdir)
