@@ -1,6 +1,7 @@
 from datetime import datetime
 from os import mkdir, walk, popen
 from os.path import join, isdir, dirname, basename, getmtime
+from re import compile
 from shutil import copy, rmtree
 from time import time
 
@@ -30,6 +31,25 @@ def addfrontmatter(wfile, tfile):
         with open(wfile, 'r') as wikifile:
             while buffer := wikifile.read(1024):
                 tmpfile.write(buffer)
+
+
+refre = compile(r"\!\[([^\{\}]*)\]\(\{\{< ref \"[^\{\}]+\" >\}\}\)")
+
+
+def imager(content):
+    new_content = ""
+    while match := refre.search(content):
+        s, e = match.span()
+        content = content[e:]
+
+        src = match.groups()[1]
+
+        new_content += content[:s]
+        new_content += f"{{{{< figure src={src} >}}}}"
+
+    new_content += content
+        
+    return new_content
 
 
 def main():
@@ -68,6 +88,7 @@ def main():
     obsidian_to_hugo = ObsidianToHugo(
         obsidian_vault_dir=tmpdir,
         hugo_content_dir=contentdir,
+        processors=[imager]
     )
 
     obsidian_to_hugo.run()
