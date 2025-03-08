@@ -17,7 +17,6 @@ def addfrontmatter(wfile, tfile):
 
         date = popen(f"cd wiki; git log -1 --pretty=format:%ci \"{wfile[7:]}\"").read()
         if not date:
-            print("wtf", wfile)
             date = datetime.now().astimezone()
         else:
             date = datetime.strptime(date, '%Y-%m-%d %H:%M:%S %z')
@@ -31,6 +30,19 @@ def addfrontmatter(wfile, tfile):
         with open(wfile, 'r') as wikifile:
             while buffer := wikifile.read(1024):
                 tmpfile.write(buffer)
+
+
+def fillfrontmatter(path):
+    title = basename(dirname(path))
+    date = datetime.now().astimezone()
+    date = date.strftime('%Y-%m-%dT%H:%M:%S%z')
+    date = date[:-2] + ':' + date[-2:]
+
+    with open(path, 'w') as file:
+        file.write("---\n")
+        file.write(f"title: {title}\n")
+        file.write(f"date: {date}\n")
+        file.write("---\n")
 
 
 refre = compile(r"\!\[([^\{\}]*)\]\(\{\{< ref \"([^\{\}]+)\" >\}\}\)")
@@ -70,8 +82,7 @@ def main():
 
         tpath = join(tmpdir, path[7:])
         isdir(tpath) or mkdir(tpath)
-        with open(join(tpath, '_index.md'), 'w'):
-            pass
+        fillfrontmatter(join(tpath, '_index.md'))
 
         if '_index.md' in filenames:
             addfrontmatter(join(path, '_index.md'), join(tpath, '_index.md'))
