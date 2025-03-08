@@ -84,8 +84,9 @@ def main():
         isdir(tpath) or mkdir(tpath)
         fillfrontmatter(join(tpath, '_index.md'))
 
-        if '_index.md' in filenames:
-            addfrontmatter(join(path, '_index.md'), join(tpath, '_index.md'))
+        bn = basename(path)
+        if bn + '.md' in filenames:
+            addfrontmatter(join(path, bn + '.md'), join(tpath, '_index.md'))
 
         for filename in filenames:
             if not filename.endswith('.md'):
