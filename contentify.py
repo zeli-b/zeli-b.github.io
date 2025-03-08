@@ -92,8 +92,10 @@ def main():
             if filename == 'README.md':
                 continue
 
-            isdir(join(tpath, bn)) or mkdir(join(tpath, bn))
-            addfrontmatter(join(path, filename), join(tpath, bn, '_index.md'))
+            fbn = filename[:-3]
+
+            isdir(join(tpath, fbn)) or mkdir(join(tpath, fbn))
+            addfrontmatter(join(path, filename), join(tpath, fbn, '_index.md'))
 
     rmtree(join(tmpdir, 'static'))
 
