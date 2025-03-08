@@ -40,17 +40,16 @@ def imager(content):
     new_content = ""
     while match := refre.search(content):
         s, e = match.span()
-        content = content[e:]
 
         src = match.groups()[1]
 
         new_content += content[:s]
-        new_content += f"{{{{< figure src={src} >}}}}"
+        new_content += f"{{{{< figure src=\"{src}\" >}}}}"
+        content = content[e:]
 
     new_content += content
         
     return new_content
-
 
 def main():
     starttime = time()
