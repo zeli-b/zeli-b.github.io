@@ -93,6 +93,8 @@ def main():
                 continue
             if filename == 'README.md':
                 continue
+            if filename == bn + '.md':
+                continue
 
             if filename != '_index.md':
                 fpath = join(tpath, filename[:-3])
