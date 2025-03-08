@@ -8,8 +8,8 @@ from obsidian_to_hugo import ObsidianToHugo
 def addfrontmatter(wfile, tfile):
     with open(tfile, 'w') as tmpfile:
         tmpfile.write('---\n')
-        tmpfile.write('title: title')
-        tmpfile.write('date: 2025-03-08T11:49:11+09:00')
+        tmpfile.write('title: title\n')
+        tmpfile.write('date: 2025-03-08T11:49:11+09:00\n')
         tmpfile.write('---\n')
         with open(wfile, 'r') as wikifile:
             while buffer := wikifile.read(1024):
