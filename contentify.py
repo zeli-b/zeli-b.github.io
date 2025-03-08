@@ -82,7 +82,7 @@ def main():
 
         tpath = join(tmpdir, path[7:])
         isdir(tpath) or mkdir(tpath)
-        fillfrontmatter(join(tpath, '_index.md'))
+        isfile(join(tpath, '_index.md')) or fillfrontmatter(join(tpath, '_index.md'))
 
         bn = basename(path)
 
