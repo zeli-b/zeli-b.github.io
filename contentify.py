@@ -33,7 +33,7 @@ def addfrontmatter(wfile, tfile):
                 tmpfile.write(buffer)
 
 
-refre = compile(r"\!\[([^\{\}]*)\]\(\{\{< ref \"[^\{\}]+\" >\}\}\)")
+refre = compile(r"\!\[([^\{\}]*)\]\(\{\{< ref \"([^\{\}]+)\" >\}\}\)")
 
 
 def imager(content):
