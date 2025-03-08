@@ -2,7 +2,7 @@ from datetime import datetime
 from os import mkdir, walk, popen
 from os.path import join, isdir, dirname, basename, getmtime
 from re import compile
-from shutil import copy, rmtree
+from shutil import copy, copytree, rmtree
 from time import time
 
 from obsidian_to_hugo import ObsidianToHugo
@@ -59,7 +59,8 @@ def main():
     tmpdir = './tmp'
     staticdir = './static'
 
-    copy(join(wikidir, "static"), staticdir)
+    isdir(staticdir) and rmtree(staticdir)
+    copytree(join(wikidir, "static"), staticdir)
 
     for path, directories, filenames in walk(wikidir):
         if '/.git' in path:
