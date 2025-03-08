@@ -85,8 +85,6 @@ def main():
         fillfrontmatter(join(tpath, '_index.md'))
 
         bn = basename(path)
-        if '_index.md' in filenames:
-            addfrontmatter(join(path, '_index.md'), join(tpath, '_index.md'))
 
         for filename in filenames:
             if not filename.endswith('.md'):
@@ -94,14 +92,8 @@ def main():
             if filename == 'README.md':
                 continue
 
-            if filename == bn + '.md':
-                fpath = tpath
-                isdir(fpath) or mkdir(fpath)
-                addfrontmatter(join(path, filename), join(fpath, '_index.md'))
-            elif filename != '_index.md':
-                fpath = join(tpath, filename[:-3])
-                isdir(fpath) or mkdir(fpath)
-                addfrontmatter(join(path, filename), join(fpath, '_index.md'))
+            isdir(join(tpath, bn)) or mkdir(join(tpath, bn))
+            addfrontmatter(join(path, filename), join(tpath, bn, '_index.md'))
 
     rmtree(join(tmpdir, 'static'))
 
