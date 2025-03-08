@@ -10,7 +10,7 @@ def addfrontmatter(wfile, tfile):
         if wfile.endswith('_index.md'):
             title = basename(dirname(wfile))
         else:
-            title = 'title'
+            title = basename(wfile)[:-3]
 
         date = '2025-03-08T11:49:11+09:00'
 
