@@ -62,13 +62,14 @@ def main():
     isdir(staticdir) and rmtree(staticdir)
     copytree(join(wikidir, "static"), staticdir)
 
+    isdir(tmpdir) and rmtree(tmpdir)
+
     for path, directories, filenames in walk(wikidir):
         if '/.git' in path:
             continue
 
         tpath = join(tmpdir, path[7:])
-        isdir(tpath) and rmtree(tpath)
-        mkdir(tpath)
+        isdir(tpath) or mkdir(tpath)
 
         if '_index.md' in filenames:
             addfrontmatter(join(path, '_index.md'), join(tpath, '_index.md'))
@@ -81,9 +82,7 @@ def main():
 
             if filename != '_index.md':
                 fpath = join(tpath, filename[:-3])
-
-                mkdir(fpath)
-
+                isdir(fpath) or mkdir(fpath)
                 addfrontmatter(join(path, filename), join(fpath, '_index.md'))
 
 
