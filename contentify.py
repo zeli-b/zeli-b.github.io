@@ -86,10 +86,15 @@ def main():
 
         bn = basename(path)
 
+        if '_index.md' in filenames:
+            addfrontmatter(join(path, '_index.md'), join(tpath, '_index.md'))
+
         for filename in filenames:
             if not filename.endswith('.md'):
                 continue
             if filename == 'README.md':
+                continue
+            if filename == '_index.md':
                 continue
 
             fbn = filename[:-3]
