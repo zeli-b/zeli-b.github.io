@@ -1,5 +1,9 @@
 {{ partial "header.html" }}
-    <a href="{{ .Parent.RelPermalink }}">{{ .Parent.LinkTitle }}</a>
+    <ol>
+        {{ range .Ancestors.Reverse }}
+            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+        {{ end }}
+    </ol>
     <hr>
 
     <h1>{{ .Title }}</h1>
