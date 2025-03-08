@@ -1,5 +1,5 @@
 from datetime import datetime
-from os import mkdir, walk
+from os import mkdir, walk, popen
 from os.path import join, isdir, dirname, basename, getmtime
 from shutil import copy, rmtree
 
@@ -13,7 +13,13 @@ def addfrontmatter(wfile, tfile):
         else:
             title = basename(wfile)[:-3]
 
-        date = datetime.utcfromtimestamp(getmtime(wfile)).astimezone().strftime('%Y-%m-%dT%H:%M:%S%z')
+        date = popen(f"cd wiki; git log -n 1 --pretty=format:%ci \"{wfile[7:]}\"").read()
+        if not date:
+            print("wtf", wfile)
+            date = datetime.now().astimezone()
+        else:
+            date = datetime.strptime(date, '%Y-%m-%d %H:%M:%S %z')
+        date = date.strftime('%Y-%m-%dT%H:%M:%S%z')
         date = date[:-2] + ':' + date[-2:]
 
         tmpfile.write('---\n')
