@@ -41,7 +41,7 @@ def imager(content):
     while match := refre.search(content):
         s, e = match.span()
 
-        src = match.groups()[1]
+        src = match.groups()[1][7:]
 
         new_content += content[:s]
         new_content += f"{{{{< figure src=\"{src}\" >}}}}"
@@ -57,6 +57,9 @@ def main():
     contentdir = './content'
     wikidir = './wiki'
     tmpdir = './tmp'
+    staticdir = './static'
+
+    copy(join(wikidir, "static"), staticdir)
 
     for path, directories, filenames in walk(wikidir):
         if '/.git' in path:
