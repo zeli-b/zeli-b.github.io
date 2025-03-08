@@ -1,5 +1,5 @@
 from os import mkdir, walk
-from os.path import join, isdir
+from os.path import join, isdir, dirname, basename
 from shutil import copy, rmtree
 
 from obsidian_to_hugo import ObsidianToHugo
@@ -7,9 +7,16 @@ from obsidian_to_hugo import ObsidianToHugo
 
 def addfrontmatter(wfile, tfile):
     with open(tfile, 'w') as tmpfile:
+        if wfile.endswith('_index.md'):
+            title = basename(dirname(wfile))
+        else:
+            title = 'title'
+
+        date = '2025-03-08T11:49:11+09:00'
+
         tmpfile.write('---\n')
-        tmpfile.write('title: title\n')
-        tmpfile.write('date: 2025-03-08T11:49:11+09:00\n')
+        tmpfile.write(f'title: {title}\n')
+        tmpfile.write(f'date: {date}\n')
         tmpfile.write('---\n')
         with open(wfile, 'r') as wikifile:
             while buffer := wikifile.read(1024):
