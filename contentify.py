@@ -100,7 +100,8 @@ def main():
             prefix = '- '
         else:
             line = line[:-3]
-            line = f'[[{line}]]'
+            if isdir(join(wikidir, line)) or isfile(join(wikidir, line) + ".md"):
+                line = f'[[{line}]]'
             prefix = '  - '
 
         changesraw[i] = prefix + line
