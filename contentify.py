@@ -85,7 +85,7 @@ def main():
     # -- recent changes
     changesraw = popen(
         'git config core.quotepath false ; '
-        'cd wiki ; git log --oneline --name-only -n 10 -z'
+        'cd wiki ; git log --oneline --name-only -n 20 -z'
     ).read()
     changesraw = changesraw.split('\0')
     changes = list()
