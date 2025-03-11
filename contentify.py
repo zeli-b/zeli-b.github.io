@@ -83,7 +83,10 @@ def main():
 
 
     # -- recent changes
-    changesraw = popen('cd wiki ; git log --oneline --name-only -n 10').read()
+    changesraw = popen(
+        'git config core.quotepath false ; '
+        'cd wiki ; git log --oneline --name-only -n 10'
+    ).read()
     changesraw = changesraw.split('\n')
     changes = list()
     for i in range(len(changesraw)):
