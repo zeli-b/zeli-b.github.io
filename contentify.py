@@ -1,5 +1,5 @@
 from datetime import datetime
-from os import mkdir, walk, popen
+from os import mkdir, walk, popen, remove
 from os.path import join, isdir, dirname, basename, getmtime, isfile
 from re import compile
 from shutil import copy, copytree, rmtree
@@ -63,6 +63,10 @@ def imager(content):
         
     return new_content
 
+
+iscommitre = compile(r'^[0-9a-f]{7} .*')
+
+
 def main():
     starttime = time()
 
@@ -70,11 +74,38 @@ def main():
     wikidir = './wiki'
     tmpdir = './tmp'
     staticdir = './static'
+    changesdir = './wiki/changes.md'
 
     isdir(staticdir) and rmtree(staticdir)
     copytree(join(wikidir, "static"), staticdir)
 
     isdir(tmpdir) and rmtree(tmpdir)
+
+
+    # -- recent changes
+    changesraw = popen('cd wiki ; git log --oneline --name-only -n 10').read()
+    changesraw = changesraw.split('\n')
+    changes = list()
+    for i in range(len(changesraw)):
+        line = changesraw[i]
+        iscommit = iscommitre.fullmatch(changesraw[i])
+
+        if not line.endswith('.md') and not iscommit:
+            continue
+
+        if iscommit:
+            prefix = '- '
+        else:
+            prefix = '  - '
+
+        line = line[:-3]
+        line = f'[{line}]({line})'
+
+        changesraw[i] = prefix + line
+
+    with open(changesdir, 'w') as file:
+        file.write('\n'.join(changesraw))
+
 
     for path, directories, filenames in walk(wikidir):
         if '/.git' in path:
@@ -113,6 +144,8 @@ def main():
     )
 
     obsidian_to_hugo.run()
+
+    remove(changesdir)
 
     et = (time() - starttime) * 1000
     print(f'Total in {int(et):,} ms')
