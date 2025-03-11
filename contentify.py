@@ -99,10 +99,9 @@ def main():
         if iscommit:
             prefix = '- '
         else:
+            line = line[:-3]
+            line = f'[[{line}]]'
             prefix = '  - '
-
-        line = line[:-3]
-        line = f'[{line}]({line})'
 
         changesraw[i] = prefix + line
 
