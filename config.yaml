@@ -1,1 +1,5 @@
-
+markdown:
+  tableOfContents:
+    endLevel: 999
+    ordered: false
+    startLevel: 2
