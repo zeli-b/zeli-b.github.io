@@ -1,5 +1,10 @@
+baseURL: https://zeli-b.github.io/
+
+languageCode: ko
+title: Wiki
+
 markdown:
   tableOfContents:
-    endLevel: 999
+    endLevel: 6
     ordered: false
     startLevel: 2
