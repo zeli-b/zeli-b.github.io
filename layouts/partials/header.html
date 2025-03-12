@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <title>Wiki - {{ .Site.Title }}</title>
-    <link rel="stylesheet" href="css/heading.css">
-    <link rel="stylesheet" href="css/style.css">
+    {{ partial "css/heading.html" . | safeCSS }}
+    {{ partial "css/style.html" . | safeCSS }}
 </head>
 <body>
