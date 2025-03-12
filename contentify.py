@@ -74,10 +74,12 @@ def main():
     wikidir = './wiki'
     tmpdir = './tmp'
     staticdir = './static'
+    cssdir = './css'
     changesdir = './wiki/changes.md'
 
     isdir(staticdir) and rmtree(staticdir)
     copytree(join(wikidir, "static"), staticdir)
+    copytree(cssdir, join(staticdir, cssdir))
 
     isdir(tmpdir) and rmtree(tmpdir)
 
