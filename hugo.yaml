@@ -3,8 +3,8 @@ baseURL: https://zeli-b.github.io/
 languageCode: ko
 title: Wiki
 
-markdown:
+markup:
   tableOfContents:
     endLevel: 6
-    ordered: false
+    ordered: true
     startLevel: 2
