@@ -7,7 +7,7 @@
     <hr>
 
     <h1>{{ .Title }}</h1>
-    <p>{{ .Date | time.Format ":date_full" }} {{ .Date | time.Format ":time_full" }}</p>
+    <p>{{ .Date | time.Format ":date_full" }} {{ .Date | time.Format ":time_short" }}</p>
 
     {{ .TableOfContents }}
 
