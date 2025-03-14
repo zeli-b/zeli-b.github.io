@@ -93,9 +93,6 @@ def main():
         line = changesraw[i]
         iscommit = iscommitre.fullmatch(changesraw[i])
 
-        if not line.endswith('.md') and not iscommit:
-            continue
-
         if iscommit:
             prefix = '- '
         else:
