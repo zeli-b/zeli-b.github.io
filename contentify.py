@@ -96,7 +96,8 @@ def main():
         if iscommit:
             prefix = '- '
         else:
-            line = line[:-3]
+            if line.endswith(".md"):
+                line = line[:-3]
             if isdir(join(wikidir, line)) or isfile(join(wikidir, line) + ".md"):
                 line = f'[[{line}]]'
             prefix = '  - '
