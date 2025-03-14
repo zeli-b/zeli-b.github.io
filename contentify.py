@@ -56,7 +56,7 @@ def imager(content):
         src = match.groups()[1][7:]
 
         new_content += content[:s]
-        new_content += f"{{{{< figure src=\"{src}\" >}}}}"
+        new_content += f"{{{{< figure src=\"/{src}\" >}}}}"
         content = content[e:]
 
     new_content += content
