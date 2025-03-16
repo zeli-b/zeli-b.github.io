@@ -95,6 +95,7 @@ def main():
 
         if iscommit:
             prefix = '- '
+            line = line[8:]
         else:
             if line.endswith(".md"):
                 line = line[:-3]
