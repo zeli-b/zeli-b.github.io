@@ -85,13 +85,17 @@ def main():
     # -- recent changes
     changesraw = popen(
         'git config core.quotepath false ; '
-        'cd wiki ; git log --oneline --name-only -n 20 -z'
+        'cd wiki ; '
+        'git log --pretty=format:"%h %s - %an" --name-only -n 20'
     ).read()
-    changesraw = changesraw.split('\0')
+    changesraw = changesraw.split('\n')
     changes = list()
     for i in range(len(changesraw)):
-        line = changesraw[i]
-        iscommit = iscommitre.fullmatch(changesraw[i])
+        line = changesraw[i].strip()
+        iscommit = iscommitre.match(changesraw[i])
+
+        if not line:
+            continue
 
         if iscommit:
             prefix = '- '
