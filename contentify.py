@@ -1,7 +1,7 @@
 from datetime import datetime
 from os import mkdir, walk, popen, remove
 from os.path import join, isdir, dirname, basename, getmtime, isfile
-from re import compile
+from re import compile, split
 from shutil import copy, copytree, rmtree
 from time import time
 
@@ -86,9 +86,10 @@ def main():
     changesraw = popen(
         'git config core.quotepath false ; '
         'cd wiki ; '
-        'git log --pretty=format:"%h %s - %an" --name-only -n 20'
+        'git log --pretty=format:"%h %s - %an" --name-only -n 20 -z'
     ).read()
-    changesraw = changesraw.split('\n')
+    # changesraw = changesraw.split('\n')
+    changesraw = split(r'\n|\0', changesraw)
     changes = list()
     for i in range(len(changesraw)):
         line = changesraw[i].strip()
