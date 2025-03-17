@@ -10,7 +10,10 @@
     <p>{{ .Date | time.Format ":date_medium" }} {{ .Date | time.Format ":time_short" }}</p>
 
     {{ .TableOfContents }}
-    <hr>
+
+    {{ if .Content }}
+        <hr>
+    {{ end }}
 
     {{ .Content }}
 
