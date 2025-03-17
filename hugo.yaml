@@ -9,3 +9,19 @@ markup:
     endLevel: 6
     ordered: true
     startLevel: 2
+  goldmark:
+    extensions:
+      passthrough:
+        delimiters:
+          block:
+          - - \[
+            - \]
+          - - $$
+            - $$
+          inline:
+          - - \(
+            - \)
+        enable: true
+
+params:
+  math: true
