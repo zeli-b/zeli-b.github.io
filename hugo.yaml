@@ -21,6 +21,8 @@ markup:
           inline:
           - - \(
             - \)
+          - - $
+            - $
         enable: true
 
 params:
