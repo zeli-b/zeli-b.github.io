@@ -2,7 +2,16 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/sat logo.png" />
-    <title>{{ .Page.Title}} - {{ .Site.Title }}</title>
+    <meta property="og:title" content="{{ .Page.Title }} - {{ .Site.Title }}" />
+    <meta property="og:description" content="{{ .Page.Summary }}" />
+    <meta property="og:site_name" content="{{ .Site.Title }}" />
+    <meta property="og:image" content="/sat logo.png" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta name="twitter:title" content="{{ .Page.Title }} - {{ .Site.Title }}">
+    <meta name="twitter:description" content="{{ .Page.Summary }}">
+    <meta name="twitter:image" content="/sat logo.png">
+    <meta name="theme-color" content="#5c94b3">
+    <title>{{ .Page.Title }} - {{ .Site.Title }}</title>
     {{ partial "css/heading.html" . }}
     {{ partial "css/style.html" . }}
 </head>
