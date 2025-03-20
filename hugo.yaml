@@ -2,7 +2,7 @@ baseURL: https://zeli-b.github.io/
 
 defaultContentLanguage: ko-kr
 languageCode: ko-kr
-title: Sat
+title: Satwiki
 
 markup:
   tableOfContents:
