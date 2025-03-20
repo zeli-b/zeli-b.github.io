@@ -86,7 +86,7 @@ def main():
     changesraw = popen(
         'git config core.quotepath false ; '
         'cd wiki ; '
-        'git log --pretty=format:"%h %s - %an" --name-only -n 20 -z'
+        'git log --pretty=format:"%h %s - %an" --name-only -n 50 -z'
     ).read()
     # changesraw = changesraw.split('\n')
     changesraw = split(r'\n|\0', changesraw)
