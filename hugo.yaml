@@ -27,3 +27,9 @@ markup:
 
 params:
   math: true
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON

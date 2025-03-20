@@ -1,0 +1,11 @@
+[
+  {{ $post := where site.RegularPages "Type" "section" }}
+  {{ range $index, $page :=  $post }}
+      {{ if $index }},{{ end }}
+        {
+            "url": {{ $page.RelPermalink | jsonify }},
+            "title": {{ $page.Title | jsonify}},
+            "content": {{ $page.Content | jsonify }}
+        }
+    {{ end }}
+]
