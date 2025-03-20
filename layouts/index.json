@@ -1,6 +1,6 @@
 [
-  {{ $post := where .Site.RegularPages "Type" "section" }}
-  {{ range $index, $page :=  $post }}
+  {{ $post := .Site.RegularPages }}
+  {{ range $index, $page := $post }}
       {{ if $index }},{{ end }}
         {
             "url": {{ $page.RelPermalink | jsonify }},
