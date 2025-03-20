@@ -1,5 +1,5 @@
 [
-  {{ $post := where site.RegularPages "Type" "section" }}
+  {{ $post := where .Site.RegularPages "Type" "section" }}
   {{ range $index, $page :=  $post }}
       {{ if $index }},{{ end }}
         {
