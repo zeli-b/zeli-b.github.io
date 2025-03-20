@@ -1,5 +1,5 @@
 [
-  {{ $post := where .Site.AllPages "Type" "section" }}
+  {{ $post := .Site.AllPages }}
   {{ range $index, $page := $post }}
       {{ if $index }},{{ end }}
         {
