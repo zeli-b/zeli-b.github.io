@@ -10,6 +10,8 @@ markup:
     ordered: true
     startLevel: 2
   goldmark:
+    renderer:
+      unsafe: true
     extensions:
       passthrough:
         delimiters:
