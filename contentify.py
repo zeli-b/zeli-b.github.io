@@ -11,7 +11,7 @@ from obsidian_to_hugo import ObsidianToHugo
 def addfrontmatter(wfile, tfile):
     with open(tfile, 'w') as tmpfile:
         if wfile.endswith('_index.md'):
-            title = basename(dirname(wfile))
+            title = '대문'
         else:
             title = basename(wfile)[:-3]
 
