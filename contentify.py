@@ -74,7 +74,7 @@ def main():
     wikidir = './wiki'
     tmpdir = './tmp'
     staticdir = './static'
-    changesdir = './wiki/changes.md'
+    changesdir = './wiki/최근 편집.md'
 
     isdir(staticdir) and rmtree(staticdir)
     copytree(join(wikidir, "static"), staticdir)
