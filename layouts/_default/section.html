@@ -1,26 +1,31 @@
 {{ partial "header.html" . }}
-    <ol>
-        {{ range .Ancestors.Reverse }}
-            <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-        {{ end }}
-    </ol>
-    <hr>
-
-    <h1>{{ .Title }}</h1>
-    <p>{{ .Date | time.Format ":date_medium" }} {{ .Date | time.Format ":time_short" }}</p>
-
-    {{ .TableOfContents }}
-
-    {{ if .Content }}
-        <hr>
+  <ol>
+    {{ range .Ancestors.Reverse }}
+      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
     {{ end }}
+  </ol>
+  <hr>
 
-    {{ .Content }}
+  <h1>{{ .Title }}</h1>
+  <p>{{ .Date | time.Format ":date_medium" }} {{ .Date | time.Format ":time_short" }}</p>
+  <p>
+    <a href="https://github.com/zeli-b/wiki/blame/main/{{ .RelPermalink }}.md">
+      편집 내역
+    </a>
+  </p>
 
+  {{ .TableOfContents }}
+
+  {{ if .Content }}
     <hr>
-    <ul>
+  {{ end }}
+
+  {{ .Content }}
+
+  <hr>
+  <ul>
     {{ range .Sections }}
-        <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+      <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
     {{ end }}
-    </ul>
+  </ul>
 {{ partial "footer.html" . }}
