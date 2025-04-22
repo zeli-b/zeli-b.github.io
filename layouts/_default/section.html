@@ -9,7 +9,7 @@
   <h1>{{ .Title }}</h1>
   <p>{{ .Date | time.Format ":date_medium" }} {{ .Date | time.Format ":time_short" }}</p>
   <p>
-    <a href="https://github.com/zeli-b/wiki/blame/main/{{ .RelPermalink }}.md">
+    <a href="https://github.com/zeli-b/wiki/blame/main/{{ substr .RelPermalink 0 -1 }}.md">
       편집 내역
     </a>
   </p>
