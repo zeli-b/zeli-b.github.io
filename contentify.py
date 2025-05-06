@@ -7,6 +7,12 @@ from time import time
 
 from obsidian_to_hugo import ObsidianToHugo
 
+contentdir = './content'
+wikidir = './wiki'
+tmpdir = './tmp'
+staticdir = './static'
+changesdir = './wiki/최근 편집.md'
+
 
 def addfrontmatter(wfile, tfile):
     with open(tfile, 'w') as tmpfile:
@@ -64,25 +70,7 @@ def imager(content):
     return new_content
 
 
-iscommitre = compile(r'^[0-9a-f]{7} .*')
-
-
-def main():
-    starttime = time()
-
-    contentdir = './content'
-    wikidir = './wiki'
-    tmpdir = './tmp'
-    staticdir = './static'
-    changesdir = './wiki/최근 편집.md'
-
-    isdir(staticdir) and rmtree(staticdir)
-    copytree(join(wikidir, "static"), staticdir)
-
-    isdir(tmpdir) and rmtree(tmpdir)
-
-
-    # -- recent changes
+def write_recent_changes():
     changesraw = popen(
         'git config core.quotepath false ; '
         'cd wiki ; '
@@ -113,6 +101,22 @@ def main():
     with open(changesdir, 'w') as file:
         file.write('\n'.join(changesraw))
 
+
+
+iscommitre = compile(r'^[0-9a-f]{7} .*')
+
+
+def main():
+    starttime = time()
+
+    isdir(staticdir) and rmtree(staticdir)
+    copytree(join(wikidir, "static"), staticdir)
+
+    isdir(tmpdir) and rmtree(tmpdir)
+
+
+    # -- recent changes
+    write_recent_changes()
 
     for path, directories, filenames in walk(wikidir):
         if '/.git' in path:
