@@ -150,6 +150,8 @@ def oth():
 def write_connections():
     connections = list()
     edgeid = 0
+    ids = set()
+    realids = set()
 
     link = compile(r"\[\[(([^|\]]+)|([^|\]]+)\|([^|\]]+))\]\]")
 
@@ -157,6 +159,7 @@ def write_connections():
         name = basename(path)
         name = "대문" if basename(path) == "tmp" else basename(path)
         connections.append({"data": {"id": path, "name": name}})
+        ids.add(path)
         with open(join(path, "_index.md"), "r") as file:
             content = file.read()
         for links in link.finditer(content):
@@ -168,6 +171,12 @@ def write_connections():
                 "source": path,
                 "target": group[1] if group[1] else group[2]
             }})
+            realids.add(path)
+            realids.add(group[1] if group[1] else group[2])
+
+    for path in realids - ids:
+        name = basename(path)
+        connections.append({"data": {"id": path, "name": name}})
 
     with open(connectionpath, "w") as file:
         dump(connections, file, ensure_ascii=False)
