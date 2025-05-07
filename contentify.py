@@ -157,12 +157,12 @@ def write_connections():
     for path, directories, filenames in walk(tmpdir):
         name = basename(path)
 
-        if name in ["최근 편집"]:
-            continue
-
         name = "대문" if basename(path) == "tmp" else basename(path)
         connections.append({"data": {"id": path, "name": name}})
         ids.add(path)
+
+        if name in ["최근 편집"]:
+            continue
 
         for directory in directories:
             connections.append({"data": {
@@ -175,12 +175,14 @@ def write_connections():
         for links in link.finditer(content):
             group = links.groups()
 
+            nid = "./tmp/" + (group[1] if group[1] else group[2])
+
             connections.append({"data": {
                 "source": path,
-                "target": group[1] if group[1] else group[2]
+                "target": nid
             }})
             realids.add(path)
-            realids.add(group[1] if group[1] else group[2])
+            realids.add(nid)
 
     for path in realids - ids:
         name = basename(path)
