@@ -155,6 +155,7 @@ def write_connections():
 
     for path, directories, filenames in walk(tmpdir):
         name = basename(path)
+        name = "대문" if basename(path) == "tmp" else basename(path)
         connections.append({"data": {"id": path, "name": name}})
         with open(join(path, "_index.md"), "r") as file:
             content = file.read()
