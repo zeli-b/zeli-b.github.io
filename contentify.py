@@ -149,7 +149,6 @@ def oth():
 
 def write_connections():
     connections = list()
-    edgeid = 0
     ids = set()
     realids = set()
 
@@ -160,14 +159,19 @@ def write_connections():
         name = "대문" if basename(path) == "tmp" else basename(path)
         connections.append({"data": {"id": path, "name": name}})
         ids.add(path)
+
+        for directory in directories:
+            connections.append({"data": {
+                "source": path,
+                "target": join(path, directory)
+            }})
+
         with open(join(path, "_index.md"), "r") as file:
             content = file.read()
         for links in link.finditer(content):
-            edgeid += 1
             group = links.groups()
 
             connections.append({"data": {
-                "id": str(edgeid),
                 "source": path,
                 "target": group[1] if group[1] else group[2]
             }})
