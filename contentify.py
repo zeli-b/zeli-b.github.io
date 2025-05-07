@@ -1,3 +1,4 @@
+from json import dump
 from datetime import datetime
 from os import mkdir, walk, popen, remove
 from os.path import join, isdir, dirname, basename, getmtime, isfile
@@ -11,7 +12,8 @@ contentdir = './content'
 wikidir = './wiki'
 tmpdir = './tmp'
 staticdir = './static'
-changesdir = './wiki/최근 편집.md'
+changespath = './wiki/최근 편집.md'
+connectionpath = './static/connection.json'
 
 
 def addfrontmatter(wfile, tfile):
@@ -98,7 +100,7 @@ def write_recent_changes():
 
         changesraw[i] = prefix + line
 
-    with open(changesdir, 'w') as file:
+    with open(changespath, 'w') as file:
         file.write('\n'.join(changesraw))
 
 
@@ -106,18 +108,7 @@ def write_recent_changes():
 iscommitre = compile(r'^[0-9a-f]{7} .*')
 
 
-def main():
-    starttime = time()
-
-    isdir(staticdir) and rmtree(staticdir)
-    copytree(join(wikidir, "static"), staticdir)
-
-    isdir(tmpdir) and rmtree(tmpdir)
-
-
-    # -- recent changes
-    write_recent_changes()
-
+def preprocess_filetree():
     for path, directories, filenames in walk(wikidir):
         if '/.git' in path:
             continue
@@ -144,19 +135,68 @@ def main():
             isdir(join(tpath, fbn)) or mkdir(join(tpath, fbn))
             addfrontmatter(join(path, filename), join(tpath, fbn, '_index.md'))
 
+
+def oth():
     rmtree(join(tmpdir, 'static'))
-
-
     isdir(contentdir) or mkdir(contentdir)
     obsidian_to_hugo = ObsidianToHugo(
         obsidian_vault_dir=tmpdir,
         hugo_content_dir=contentdir,
         processors=[imager]
     )
-
     obsidian_to_hugo.run()
 
-    remove(changesdir)
+
+def write_connections():
+    connections = list()
+    edgeid = 0
+
+    link = compile(r"\[\[(([^|\]]+)|([^|\]]+)\|([^|\]]+))\]\]")
+
+    for path, directories, filenames in walk(tmpdir):
+        name = basename(path)
+        connections.append({"data": {"id": path, "name": name}})
+        with open(join(path, "_index.md"), "r") as file:
+            content = file.read()
+        for links in link.finditer(content):
+            edgeid += 1
+            group = links.groups()
+
+            connections.append({"data": {
+                "id": str(edgeid),
+                "source": path,
+                "target": group[1] if group[1] else group[2]
+            }})
+
+    with open(connectionpath, "w") as file:
+        dump(connections, file)
+
+
+def main():
+    starttime = time()
+
+    isdir(staticdir) and rmtree(staticdir)
+    copytree(join(wikidir, "static"), staticdir)
+
+    isdir(tmpdir) and rmtree(tmpdir)
+
+    write_recent_changes()
+    et = (time() - starttime) * 1000
+    print(f"recent changes gotten: {int(et):,} ms")
+
+    preprocess_filetree()
+    et = (time() - starttime) * 1000
+    print(f"preprocess filetree done: {int(et):,} ms")
+
+    write_connections()
+    et = (time() - starttime) * 1000
+    print(f"write connections done: {int(et):,} ms")
+
+
+    oth()
+    et = (time() - starttime) * 1000
+    print(f"obsidian to hugo done: {int(et):,} ms")
+
 
     et = (time() - starttime) * 1000
     print(f'Total in {int(et):,} ms')
