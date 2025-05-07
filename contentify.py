@@ -156,6 +156,10 @@ def write_connections():
 
     for path, directories, filenames in walk(tmpdir):
         name = basename(path)
+
+        if name in ["최근 편집"]:
+            continue
+
         name = "대문" if basename(path) == "tmp" else basename(path)
         connections.append({"data": {"id": path, "name": name}})
         ids.add(path)
