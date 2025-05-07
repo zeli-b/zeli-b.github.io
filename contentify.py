@@ -170,7 +170,7 @@ def write_connections():
             }})
 
     with open(connectionpath, "w") as file:
-        dump(connections, file)
+        dump(connections, file, ensure_ascii=False)
 
 
 def main():
